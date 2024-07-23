@@ -1,7 +1,7 @@
 class Product:
-    def __init__(self, name: str, weight: float, category: str):
+    def __init__(self, name, weight, category):
         self.name = name
-        self.weight = weight
+        self.weight = float(weight)
         self.category = category
 
     # @classmethod
@@ -18,8 +18,8 @@ class Product:
 def is_product_exists(file, product):
     file.seek(0)
     products_list = file.read().splitlines()
-    for temp in products_list:
-        args = [tmp.strip() for tmp in temp.split(',')]
+    for product_str in products_list:
+        args = [product_part.strip() for product_part in product_str.split(',')]
         # p = Product.create(*args)
         p = Product(*args)
         if product == p:
