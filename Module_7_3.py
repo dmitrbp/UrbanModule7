@@ -1,3 +1,9 @@
+from enum import Enum
+
+class Finder(Enum):
+    FIND = 1
+    COUNT = 2
+
 def str_replace(source, replace_list):
     for element in replace_list:
         source = source.replace(element, '' if len(element) == 1 else ' ')
@@ -19,28 +25,29 @@ class WordsFinder:
         return all_words
 
     def find(self, word):
-        result = {}
-        dict_ = self.get_all_words()
-        for key, value in self.get_all_words().items():
-            for index in range(len(value)):
-                if word.lower() == value[index]:
-                    result[key] = index + 1
-                    break
-        return result
+        return self.__finder(word, Finder.FIND)
 
     def count(self, word):
+        return self.__finder(word, Finder.COUNT)
+
+    def __finder(self, word, find_type: Finder):
         result = {}
-        dict_ = self.get_all_words()
         for key, value in self.get_all_words().items():
             repetition = 0
             for index in range(len(value)):
                 if word.lower() == value[index]:
-                    repetition += 1
-            result[key] = repetition
+                    if find_type == Finder.COUNT:
+                        repetition += 1
+                    elif find_type == Finder.FIND:
+                        result[key] = index + 1
+                        break
+            if find_type == Finder.COUNT:
+                result[key] = repetition
         return result
 
 
-finder2 = WordsFinder('test_file.txt')
+
+finder2 = WordsFinder('test_file.txt', 'test_file2.txt')
 print(finder2.get_all_words()) # Все слова
 print(finder2.find('TEXT')) # 3 слово по счёту
 print(finder2.count('teXT')) # 4 слова teXT в тексте всего
