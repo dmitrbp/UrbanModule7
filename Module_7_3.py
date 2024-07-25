@@ -1,18 +1,22 @@
 from enum import Enum
 
+
 class Finder(Enum):
     FIND = 1
     COUNT = 2
+
 
 def str_replace(source, replace_list):
     for element in replace_list:
         source = source.replace(element, '' if len(element) == 1 else ' ')
     return source
 
+
 class WordsFinder:
     for_replacement = [',', '.', '=', '!', '?', ';', ':', ' - ']
+
     def __init__(self, *file_names):
-        self.file_names  = file_names
+        self.file_names = file_names
 
     def get_all_words(self):
         all_words = {}
@@ -46,8 +50,7 @@ class WordsFinder:
         return result
 
 
-
 finder2 = WordsFinder('test_file.txt', 'test_file2.txt')
-print(finder2.get_all_words()) # Все слова
-print(finder2.find('TEXT')) # 3 слово по счёту
-print(finder2.count('teXT')) # 4 слова teXT в тексте всего
+print(finder2.get_all_words())  # Все слова
+print(finder2.find('TEXT'))  # 3 слово по счёту
+print(finder2.count('teXT'))  # 4 слова teXT в тексте всего
