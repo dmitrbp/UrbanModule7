@@ -18,3 +18,10 @@ info = [
 result = custom_write('test.txt', info)
 for elem in result.items():
     print(elem)
+
+file = open('test.txt', encoding='utf8')
+line = file.readline()
+while line:
+    print(line)
+    line = file.readline()
+file.close()
